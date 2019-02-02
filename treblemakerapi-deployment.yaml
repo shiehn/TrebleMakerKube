@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: treblemakerapi
+spec:
+  type: NodePort
+  ports:
+  - protocol: "TCP"
+    port: 7777
+    targetPort:
+    nodePort: 30000
+  selector:
+    app: treblemakerapi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: treblemakerapi
+  labels:
+    app: treblemakerapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: treblemakerapi
+  template:
+    metadata:
+      labels:
+        app: treblemakerapi
+    spec:
+      containers:
+      - name: treblemakerapi
+        image: stevehiehn/treblemakerapi:latest
+        ports:
+        - containerPort: 7777
+          #        resources:
+          #requests:
+          #  memory: 5000Mi
+          #  cpu: 4
+          #limits:
+          #  memory: 5000Mi
+          #  cpu: 4
