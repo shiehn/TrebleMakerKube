@@ -6,15 +6,11 @@ RUN apt-get -y update && \
     apt-get -y install sox libsox-fmt-all && \
     apt-get -y install fluidsynth
 
+ARG CACHE_DATE=2016-01-01
+
 RUN git clone https://github.com/shiehn/TrebleMaker.git
 
 WORKDIR /TrebleMaker
-
-RUN ./scripts/fetch-deps.sh
-
-WORKDIR /TrebleMaker/TrebleMakerCore
-
-#RUN mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies --fail-never
 
 ENV TM_ROOT_DIR="/TrebleMaker" \
     TM_CACHE_CONN="hazelcast:5701" \
@@ -43,9 +39,8 @@ ENV TM_ROOT_DIR="/TrebleMaker" \
     AWS_ACCESS_KEY_ID="[YOUR-AWS-ACCESS-KEY]" \
     AWS_SECRET_ACCESS_KEY="[YOUR-AWS-SECRET-KEY]"
 
-WORKDIR /TrebleMaker
-
-RUN ./create_aws_credentials.sh 
+RUN ./scripts/fetch-deps.sh && \
+    ./create_aws_credentials.sh 
  
 CMD ./wait_on_api.sh
  

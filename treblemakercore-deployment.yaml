@@ -30,11 +30,13 @@ spec:
     spec:
       containers:
       - name: treblemakercore
-        image: stevehiehn/treblemakercore:latest
-        #resources:
-        #  requests:
-        #    memory: 5000Mi
-        #    cpu: 4
-        #  limits:
-        #    memory: 5000Mi
-        #    cpu: 4
+        image: stevehiehn/treblemakercore:0
+        imagePullPolicy: Always
+        env:
+        - name: AWS_BUCKET_NAME
+          value: "songseeds"
+        - name: AWS_ACCESS_KEY_ID
+          value: ""
+        - name: AWS_SECRET_ACCESS_KEY
+          value: ""
+

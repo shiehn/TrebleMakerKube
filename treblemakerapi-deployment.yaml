@@ -30,13 +30,14 @@ spec:
     spec:
       containers:
       - name: treblemakerapi
-        image: stevehiehn/treblemakerapi:latest
+        image: stevehiehn/treblemakerapi:0
+        imagePullPolicy: Always
         ports:
         - containerPort: 7777
-          #        resources:
-          #requests:
-          #  memory: 5000Mi
-          #  cpu: 4
-          #limits:
-          #  memory: 5000Mi
-          #  cpu: 4
+        env:
+        - name: AWS_BUCKET_NAME
+          value: "songseeds"
+        - name: AWS_ACCESS_KEY_ID
+          value: ""
+        - name: AWS_SECRET_ACCESS_KEY
+          value: ""

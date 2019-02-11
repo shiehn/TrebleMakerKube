@@ -2,6 +2,8 @@ FROM appinair/jdk11-maven:latest
 
 WORKDIR / 
 
+ARG CACHE_DATE=2016-01-01
+
 RUN git clone https://github.com/shiehn/TrebleMakerApi.git
 
 WORKDIR /TrebleMakerApi
